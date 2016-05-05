@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "copy": "copyfiles -f ./src/index.html ./dist",
+    "start": "webpack-dev-server",
     "build": "npm run copy && webpack"
   },
   "author": "Basil Veerman",
@@ -16,6 +17,8 @@
     "copyfiles": "^0.2.1",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
-    "webpack": "^1.13.0"
+    "react-hot-loader": "^1.3.0",
+    "webpack": "^1.13.0",
+    "webpack-dev-server": "^1.14.1"
   }
 }

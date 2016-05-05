@@ -1,11 +1,11 @@
 import React from 'react';
+import { PageHeader } from 'react-bootstrap';
 
 class App extends React.Component {
   render () {
     return (
       <div>
-        <h1>Building apps for days</h1>
-        <h3>#cantstopwontstop</h3>
+        <PageHeader>Building apps for days<small> #cantstopwontstop</small></PageHeader>
       </div>
     );
   }

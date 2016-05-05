@@ -2,11 +2,32 @@ import React from 'react';
 import L from 'leaflet';
 import leafletDraw from 'leaflet-draw';
 
+import GeoExporter from './GeoExporter'
+
 var mapStyle = {
   height: '600px',
+  width: '80%',
+  float: 'left',
 };
 
+let toolStyle = {
+  width: '20%',
+  float: 'right',
+  padding: '10px',
+}
+
 class Map extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { area: {} };
+  }
+
+  clearMapFeatures () {
+    this.drawnItems.getLayers().map(function (layer) {
+      this.drawnItems.removeLayer(layer);
+    }.bind(this));
+  }
+
   componentDidMount () {
 
     let map = L.map(this.refs.map);
@@ -22,7 +43,7 @@ class Map extends React.Component {
     Draw controls
     */
 
-    let drawnItems = new L.FeatureGroup();
+    let drawnItems = this.drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
 
     let drawOptions = {
@@ -39,8 +60,12 @@ class Map extends React.Component {
 
     let onDraw = function (e) {
       var layer = e.layer;
+      this.clearMapFeatures();
       drawnItems.addLayer(layer);
-    };
+      var gj = layer.toGeoJSON();
+      gj.properties.source = 'FOSS4GNA Demo'; // Need attrs for shapefile export
+      this.setState({ area: gj })
+    }.bind(this);
 
     map.on('draw:created', onDraw);
 
@@ -48,8 +73,14 @@ class Map extends React.Component {
   }
 
   render () {
-    return <div style={mapStyle} ref="map" /> // results in this.refs.map
-    // return <div style={mapStyle} ref={ (c) => this._map = c } /> //results in this._map
+    return (
+      <div>
+        <div style={mapStyle} ref="map" />
+        <div style={toolStyle}>
+          <GeoExporter area={this.state.area} />
+        </div>
+      </div>
+    )
   }
 }
 

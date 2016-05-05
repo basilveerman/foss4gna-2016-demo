@@ -3,6 +3,8 @@ import { PageHeader } from 'react-bootstrap';
 
 import WebMap from './Map';
 
+import styles from './Main.css';
+
 class App extends React.Component {
   render () {
     return (

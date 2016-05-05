@@ -8,6 +8,8 @@ var PORT = 3000;
 
 var config = {
   entry: [
+    'webpack-dev-server/client?http://localhost:' + PORT,
+    'webpack/hot/only-dev-server',
     path.resolve(APP_DIR + '/index.js')],
 
   output: {
@@ -18,9 +20,22 @@ var config = {
   module: {
     loaders: [{
       test: /\.(js|jsx)$/,
-      loader: 'babel-loader',
+      loader: 'react-hot!babel-loader',
       include: APP_DIR,
     }],
+  },
+
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+  ],
+
+  devServer: {
+    contentBase: APP_DIR,
+    historyApiFallback: true,
+    hot: true,
+    port: PORT,
+    noInfo: false
   },
 };
 

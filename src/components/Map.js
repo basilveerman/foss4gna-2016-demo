@@ -1,5 +1,6 @@
 import React from 'react';
 import L from 'leaflet';
+import leafletDraw from 'leaflet-draw';
 
 var mapStyle = {
   height: '600px',
@@ -16,6 +17,32 @@ class Map extends React.Component {
       attribution:
       osmAttrib
     }).addTo(map);
+
+    /*
+    Draw controls
+    */
+
+    let drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
+
+    let drawOptions = {
+      edit: {
+        featureGroup: drawnItems,
+      },
+      draw: {
+        marker: false,
+        polyline: false,
+      },
+    };
+    let drawControl = new L.Control.Draw(drawOptions);
+    map.addControl(drawControl);
+
+    let onDraw = function (e) {
+      var layer = e.layer;
+      drawnItems.addLayer(layer);
+    };
+
+    map.on('draw:created', onDraw);
 
     map.setView([35.7796 , -78.6382], 13);
   }

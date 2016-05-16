@@ -9,7 +9,7 @@ class App extends React.Component {
   render () {
     return (
       <div>
-        <PageHeader>Building apps for days<small> #cantstopwontstop</small></PageHeader>
+        <PageHeader>[M]apps for days<small> #cantstopwontstop</small></PageHeader>
         <WebMap />
       </div>
     );

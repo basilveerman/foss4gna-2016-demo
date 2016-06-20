@@ -20,6 +20,7 @@
     "filesaver.js": "^0.2.0",
     "leaflet": "^0.7.7",
     "leaflet-draw": "^0.3.0",
+    "openlayers": "^3.16.0",
     "react": "^15.0.2",
     "react-bootstrap": "^0.29.3",
     "react-dom": "^15.0.2",
